@@ -34,7 +34,7 @@ public class CCSweepAndPrune extends CollisionChecker{
 			xIntervals.clear();
 			numColliders = 0;
 		}
-		//when colliders added, add to colliderIntervals
+		//when colliders added, add to xIntervals
 		if (numColliders < colliders.size()){
 			System.out.println("RESIZING");
 			for (int i = numColliders; i < colliders.size(); i++){
@@ -58,7 +58,7 @@ public class CCSweepAndPrune extends CollisionChecker{
 			}
 		}
 
-		//sort both interval lists
+		//sort interval list
 		InsertionSort(xIntervals);
 
 		//find overlapping bounds on x axis
@@ -79,13 +79,11 @@ public class CCSweepAndPrune extends CollisionChecker{
 						if (newCollision.collider1.getAABB().isOverlapping(newCollision.collider2.getAABB())){
 							collisions.add(newCollision);
 						}
-						//xOverlaps.add(newCollision);
 					}
 				}
 				xMinsFound.remove(toDelete);
 			}
 		}
-
 		return  collisions;
 	}
 

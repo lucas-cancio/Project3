@@ -58,9 +58,8 @@ public class CollisionTest{
 	
 	// Current algorithm name
 	String algName;
-	
-	
-	
+
+
 	// Random number generator
 	private Random random;
 	

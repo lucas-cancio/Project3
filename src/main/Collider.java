@@ -17,8 +17,7 @@ public class Collider{
 	
 	private float velX, velY;
 	
-	public AABB aabb;
-	
+	private AABB aabb;
 	
 	public Collider(float x, float y, float size, float velX, float velY){
 		this.x = x;
@@ -84,21 +83,6 @@ public class Collider{
 	public AABB getAABB(){
 		return aabb;
 	}
-
-//	@Override
-//	public boolean equals(Object object) {
-//
-//		if (object instanceof Collision) {
-//			Collider other = (Collider) object;
-//			if (this.getAABB() == other.getAABB()){
-//				return true;
-//			}
-//			else{
-//				return false;
-//			}
-//		}
-//		return false;
-//	}
 
 	@Override
 	public boolean equals(Object o) {
