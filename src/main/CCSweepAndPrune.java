@@ -18,13 +18,11 @@ public class CCSweepAndPrune extends CollisionChecker{
 	public CCSweepAndPrune(ArrayList<Collider> colliders){
 		super(colliders);
 		xIntervals = new ArrayList<ColliderInterval>();
-		yIntervals = new ArrayList<ColliderInterval>();
 	}
 
 	public int numColliders = 0;
 
 	public ArrayList<ColliderInterval> xIntervals;
-	public ArrayList<ColliderInterval> yIntervals;
 
 	public ArrayList<Collision> checkCollisions(){
 
@@ -34,7 +32,6 @@ public class CCSweepAndPrune extends CollisionChecker{
 		if (numColliders > colliders.size()){
 			System.out.println("COLLIDERS REMOVED");
 			xIntervals.clear();
-			//yIntervals.clear();
 			numColliders = 0;
 		}
 		//when colliders added, add to colliderIntervals
@@ -43,14 +40,10 @@ public class CCSweepAndPrune extends CollisionChecker{
 			for (int i = numColliders; i < colliders.size(); i++){
 				Collider curCol = colliders.get(i);
 				ColliderInterval xLower = new ColliderInterval(curCol.getAABB().lowerBoundX, curCol, true);
-				//ColliderInterval yLower = new ColliderInterval(curCol.getAABB().lowerBoundY, curCol, true);
 				ColliderInterval xUpper = new ColliderInterval(curCol.getAABB().upperBoundX, curCol, false);
-				//ColliderInterval yUpper = new ColliderInterval(curCol.getAABB().upperBoundY, curCol, false);
 
 				xIntervals.add(xLower);
 				xIntervals.add(xUpper);
-				//yIntervals.add(yLower);
-				//yIntervals.add(yUpper);
 				numColliders++;
 			}
 		}
@@ -64,18 +57,9 @@ public class CCSweepAndPrune extends CollisionChecker{
 				CI.interval = CI.collider.getAABB().upperBoundX;
 			}
 		}
-//		for (ColliderInterval CI : yIntervals){
-//			if (CI.start){
-//				CI.interval = CI.collider.getAABB().lowerBoundY;
-//			}
-//			else {
-//				CI.interval = CI.collider.getAABB().upperBoundY;
-//			}
-//		}
 
 		//sort both interval lists
 		InsertionSort(xIntervals);
-		//InsertionSort(yIntervals);
 
 		//find overlapping bounds on x axis
 		Set<ColliderInterval> xMinsFound = new HashSet<ColliderInterval>();
@@ -102,36 +86,6 @@ public class CCSweepAndPrune extends CollisionChecker{
 			}
 		}
 
-		//find overlapping bounds on y axis
-//		Set<ColliderInterval> yMinsFound = new HashSet<ColliderInterval>();
-//		Set<Collision> yOverlaps = new HashSet<Collision>();
-//		for (ColliderInterval curInt : yIntervals){
-//			if (curInt.start){
-//				yMinsFound.add(curInt);
-//			}
-//			else {
-//				ColliderInterval toDelete = new ColliderInterval(0, null, true);
-//
-//				for (ColliderInterval CI : yMinsFound){
-//					if (CI.collider.equals(curInt.collider)){
-//						toDelete = CI;
-//					}
-//					else {
-//						Collision newCollision = new Collision(curInt.collider, CI.collider);
-//						yOverlaps.add(newCollision);
-//					}
-//				}
-//				yMinsFound.remove(toDelete);
-//			}
-//		}
-//
-//		//find intersection between overlapping bounds in x and y axes
-//		for (Collision c : yOverlaps){
-//			Collision mirrored = new Collision(c.collider2, c.collider1);
-//			if (xOverlaps.contains(c) || xOverlaps.contains(mirrored)){
-//				collisions.add(c);
-//			}
-//		}
 		return  collisions;
 	}
 
