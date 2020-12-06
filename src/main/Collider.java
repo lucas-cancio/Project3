@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Objects;
+
 /**
  * Collider.java
  * 
@@ -15,7 +17,7 @@ public class Collider{
 	
 	private float velX, velY;
 	
-	private AABB aabb;
+	public AABB aabb;
 	
 	
 	public Collider(float x, float y, float size, float velX, float velY){
@@ -81,5 +83,38 @@ public class Collider{
 	
 	public AABB getAABB(){
 		return aabb;
+	}
+
+//	@Override
+//	public boolean equals(Object object) {
+//
+//		if (object instanceof Collision) {
+//			Collider other = (Collider) object;
+//			if (this.getAABB() == other.getAABB()){
+//				return true;
+//			}
+//			else{
+//				return false;
+//			}
+//		}
+//		return false;
+//	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Collider)) return false;
+		Collider collider = (Collider) o;
+		return Float.compare(collider.x, x) == 0 &&
+				Float.compare(collider.y, y) == 0 &&
+				Float.compare(collider.size, size) == 0 &&
+				Float.compare(collider.velX, velX) == 0 &&
+				Float.compare(collider.velY, velY) == 0 &&
+				aabb.equals(collider.aabb);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y, size, velX, velY, aabb);
 	}
 }

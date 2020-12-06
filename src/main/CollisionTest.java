@@ -32,7 +32,7 @@ public class CollisionTest{
 	private final int COLLIDER_INITIAL_COUNT = 1000;
 	
 	// Number of colliders to add/remove at a time
-	private final int COLLIDER_INCREMENT_COUNT = 100;
+	private final int COLLIDER_INCREMENT_COUNT = 200;
 	
 	// Zoom factor and range
 	private final float ZOOM_FACTOR = 1.2f;
@@ -248,10 +248,9 @@ public class CollisionTest{
 	private void removeColliders(int num){
 		
 		for(int i = 0; i < num; i++){
-			colliders.remove(colliders.size() - 1);
-			
 			if(colliders.isEmpty())
 				return;
+			colliders.remove(colliders.size() - 1);
 		}
 	}
 	
@@ -277,7 +276,7 @@ public class CollisionTest{
 			
 			// Rainbow uwu
 			if(colorMode == 1)
-				g.setColor(Color.getHSBColor((float)(rTime / 1000f + Math.atan2(c.getY(), c.getX()) / Math.PI), 1, 1));
+				g.setColor(Color.getHSBColor((float)(rTime / 500f + Math.atan2(c.getY(), c.getX()) / Math.PI), 1, 1));
 			
 			// Get zoomed size and set to 1 if <1 so colliders will always be visible 
 			int size = (int)(c.getSize() * zoom);
