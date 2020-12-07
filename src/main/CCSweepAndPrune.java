@@ -30,13 +30,19 @@ public class CCSweepAndPrune extends CollisionChecker{
 
 		//when colliders are removed, delete all collider intervals and add again
 		if (numColliders > colliders.size()){
-			System.out.println("COLLIDERS REMOVED");
-			xIntervals.clear();
-			numColliders = 0;
+			ArrayList<ColliderInterval> toDelete = new ArrayList<ColliderInterval>();
+			for (ColliderInterval CI : xIntervals){
+				if (!colliders.contains(CI.collider)){
+					toDelete.add(CI);
+				}
+			}
+			for (ColliderInterval CI : toDelete){
+				xIntervals.remove(CI);
+			}
+
 		}
 		//when colliders added, add to xIntervals
 		if (numColliders < colliders.size()){
-			System.out.println("RESIZING");
 			for (int i = numColliders; i < colliders.size(); i++){
 				Collider curCol = colliders.get(i);
 				ColliderInterval xLower = new ColliderInterval(curCol.getAABB().lowerBoundX, curCol, true);

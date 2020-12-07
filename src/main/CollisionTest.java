@@ -20,14 +20,14 @@ public class CollisionTest{
 	private final int DRAW_OFFSET_Y = 31;
 	
 	// Bounds for collider region
-	private final int REGION_SIZE_X = 10000;
-	private final int REGION_SIZE_Y = 10000;
+	private int REGION_SIZE_X = 10000;
+	private int REGION_SIZE_Y = 10000;
 	
 	// Collider properties
 	private final float COLLIDER_SIZE = 80;
-	private final float COLLIDER_VEL_MIN = 2;
+	private final float COLLIDER_VEL_MIN = 1;
 	private final float COLLIDER_VEL_MAX = 3;
-	
+
 	// Number of colliders to start with
 	private final int COLLIDER_INITIAL_COUNT = 1000;
 	
@@ -230,7 +230,6 @@ public class CollisionTest{
 	
 	private void addColliders(int num){
 		for(int i = 0; i < num; i++){
-			
 			// Get random position, adjusting for collider size
 			float x = (random.nextFloat() * (REGION_SIZE_X - COLLIDER_SIZE * 2)) - REGION_SIZE_X / 2f + COLLIDER_SIZE;
 			float y = (random.nextFloat() * (REGION_SIZE_Y - COLLIDER_SIZE * 2)) - REGION_SIZE_Y / 2f + COLLIDER_SIZE;
@@ -242,6 +241,8 @@ public class CollisionTest{
 			// Add collider
 			colliders.add(new Collider(x, y, COLLIDER_SIZE, vel * (float)Math.cos(dir), vel * (float)Math.sin(dir)));
 		}
+		REGION_SIZE_X = 10000 + 2 * (colliders.size() - 1000);
+		REGION_SIZE_Y = 10000 + 2 * (colliders.size() - 1000);
 	}
 	
 	private void removeColliders(int num){
@@ -251,6 +252,8 @@ public class CollisionTest{
 				return;
 			colliders.remove(colliders.size() - 1);
 		}
+		REGION_SIZE_X = 10000 + 2 * (colliders.size() - 1000);
+		REGION_SIZE_Y = 10000 + 2 * (colliders.size() - 1000);
 	}
 	
 	public void draw(Graphics2D g, int winWidth, int winHeight){
